@@ -1,0 +1,118 @@
+@font-face {
+  font-family: 'Inter var';
+  src: url('../data/Inter.var.woff2');
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5em 1em;
+    font-family: sans-serif;
+}
+
+.wrapper {
+  position: relative;
+  background-color: #fdf5f5;
+}
+
+.bin rect {
+    fill: cornflowerblue;
+    /* Example: Add an animation whenever our bars update */
+    /* transition: all 1s ease-out; */
+    /* Results in all bars shifting slowly to one side while changing height - where we can see width, height, x, and y values are animating - but it doesn't really fit a typical mental model of how bar graphs work */
+    /* Example: Let the bars change position instantaneously; only animate height and y values */
+    transition: height 1s ease-out, y 1s ease-out;
+}
+
+.bin text {
+    text-anchor: middle;
+    fill: darkgrey;
+    font-size: 12px;
+    font-family: sans-serif;
+    /* SOLUTION: Target the new transform defined in updating-bars.js barText */
+    transition: transform 1s ease-out;
+}
+
+.mean {
+    stroke: maroon;
+    stroke-dasharray: 2px 4px;
+    /* IMPROVEMENT: Create a transition for our newly defined transform */
+    transition: transform 1s ease-out;
+}
+
+.x-axis-label {
+    fill: black;
+    font-size: 1.4em;
+    text-transform: capitalize;
+}
+
+
+
+button {
+    font-size: 1.2em;
+    margin-left: 1em;
+    padding: 0.5em 1em;
+    appearance: none;
+    -webkit-appearance: none;
+    background: darkseagreen;
+    color: white;
+    border: none;
+    box-shadow: 0 5px 0 0 seagreen;
+    border-radius: 6px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+}
+
+button:hover,
+button:focus {
+    background: #73b173;
+    box-shadow: 0 4px 0 0 seagreen;
+    transform: translateY(1px);
+}
+
+button:hover:active,
+button:focus:active,
+button:active {
+    box-shadow: 0 1px 0 0 seagreen;
+    transform: translateY(4px);
+}
+
+.tooltip {
+    opacity: 0;
+    position: absolute;
+    top: -12px;
+    left: 0;
+    padding: 0.6em 1em;
+    background: #fff;
+    text-align: center;
+    border: 1px solid #ddd;
+    z-index: 10;
+    transition: all 0.2s ease-out;
+    /* Prevent tooltip from receiving the mouse events we will be implementing */
+    pointer-events: none;
+}
+
+/* Adds an arrow pointing down at the hovered bar */
+.tooltip:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border: 1px solid #ddd;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    transform: translate(-50%, 50%) rotate(45deg);
+    transform-origin: center center;
+    z-index: 10;
+}
+
+.tooltip-range {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
